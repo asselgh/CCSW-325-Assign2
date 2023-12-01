@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class SensorDataProcessor {
     // Sensor data and limits.
     public double[][][] data;
@@ -20,7 +24,7 @@ public class SensorDataProcessor {
     }
 
     // Calculate data
-    public void calculate(double d) {
+    public void calculate(double divisor) {
         int i, j, k = 0;
         double[][][] data2 = new double[data.length][data[0].length][data[0][0].length];
         BufferedWriter out;
@@ -31,7 +35,7 @@ public class SensorDataProcessor {
             for (i = 0; i < data.length; i++) {
                 for (j = 0; j < data[0].length; j++) {
                     for (k = 0; k < data[0][0].length; k++) {
-                        data2[i][j][k] = data[i][j][k] / d - Math.pow(limit[i][j], 2.0);
+                        data2[i][j][k] = data[i][j][k] / divisor - Math.pow(limit[i][j], 2.0);
                         if (average(data2[i][j]) > 10 && average(data2[i][j]) < 50)
                             break;
                         else if (Math.max(data[i][j][k], data2[i][j][k]) > data[i][j][k])
